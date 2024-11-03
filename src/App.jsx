@@ -31,11 +31,11 @@ function App() {
     <>
       <Navbar></Navbar>
 
-      <div className="">
+      <div className="container">
         <BrowserRouter>
           <Routes>
 
-            <Route index element={<IndexPage />} className="indexContainer"></Route>
+            <Route index element={<IndexPage />} className=""></Route>
             <Route path="/index" element={<IndexPage />}></Route>
             <Route path='/movies' element={<MoviesPage />}></Route>
 

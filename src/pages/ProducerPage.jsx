@@ -15,7 +15,7 @@ function ProducerPage(props) {
     return (
         <div>
             <p>{props.prodCompany.name}</p>
-            <a href=""><p></p></a>
+            <img src={props.prodCompany.companyImage} alt="" />
         </div>
     )
 }
