@@ -1,6 +1,8 @@
 import { Box, boxClasses } from '@mui/material'
 import React from 'react'
 import styles from './Navbar.module.css'
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../components/AuthService';
 
 function Navbar() {
     const path = window.location.pathname;
@@ -8,15 +10,30 @@ function Navbar() {
     const navStyle = {
         width: "100%",
         display: "flex",
-        alignItems: "stretch",
-        justifyContent: "center",
-        backgroundColor: "white",
+        alignItems: "center",
+        justifyContent: "space-between",
+        backgroundColor: "#606060",
         position: "fixed",
         top: 0,
         left: 0,
-        width: "100%",
-        backgroundColor: "#606060",
-        zIndex: 1000
+        zIndex: 1000,
+        padding: "0 2rem"
+    };
+
+    const ulStyle = {
+        display: "flex",
+        listStyle: "none",
+        margin: 0,
+        padding: 0,
+        gap: "2rem"
+    };
+
+    const { isAuthenticated, logout } = useAuth()
+    const navigate = useNavigate()
+
+    function handleLogout() {
+        logout()
+        navigate('/')
     }
 
     return (
@@ -24,9 +41,23 @@ function Navbar() {
 
             {/* <img src={logo} alt="" className="logo"/> */}
 
-            <ul>
-                <li className={path === '/' ? styles.active : ''}><a href="/" style={{ textShadow: "rgba(9, 0, 255, 0.43) 0px 0px 38px" }}>Home</a></li>
-                <li className={path === '/movies' ? styles.active : ''}><a href="/movies">Movies</a></li>
+            <ul style={ulStyle}>
+                <li className={path === '/' ? styles.active : ''}>
+                    <Link to="/">Home</Link>
+                </li>
+
+                <li className={path === '/movies' ? styles.active : ''}>
+                    <Link to="/movies">Movies</Link>
+                </li>
+
+                <li className={path === '/login' ? styles.active : ''}>
+                    {isAuthenticated() ? (
+                        <Link to="" onClick={handleLogout}>Logout</Link>
+                    ) : (
+                        <Link to="/login">Login</Link>
+                    )}
+
+                </li>
             </ul>
         </nav>
     )

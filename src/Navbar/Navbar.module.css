@@ -10,8 +10,9 @@ nav li {
 }
 
 nav li:hover {
-    background-color: rgb(30, 30, 63);
+    background-color: rgba(16, 107, 121, 0.454);
     text-decoration: underline;
+    text-underline-offset: 10px;
 }
 
 nav li.active {
@@ -48,5 +49,5 @@ ul li a {
 
 ul li a:hover {
     text-decoration: none;
-    text-shadow: rgba(9, 0, 255, 0.43) 0px 0px 38px;
+    text-shadow: rgba(113, 121, 255, 0.43) 0px 0px 38px;
 }

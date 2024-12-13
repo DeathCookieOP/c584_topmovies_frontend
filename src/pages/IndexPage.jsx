@@ -14,7 +14,7 @@ function IndexPage() {
     return (
         <div style={indexContainer}>
             <h1>Top Movies of ALL Time!</h1>
-            <p>Discover the top movies that I would recommend to anyone looking for a new show to watch!</p>
+            <p>Discover the top movies that you would recommend to anyone looking for a new show to watch!</p>
             <a href="/movies"><button >Movies</button></a>
         </div>
     )

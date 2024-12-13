@@ -2,23 +2,18 @@ import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import AuthService from './components/AuthService'
 import Navbar from './Navbar/Navbar'
 import IndexPage from './pages/IndexPage'
 import MoviesPage from './pages/MoviesPage'
 import ProducerPage from './pages/ProducerPage'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import LoginPage from './pages/LoginPage'
+import AddMoviePage from './pages/AddMoviePage'
+import AddCompanyPage from './pages/AddCompanyPage'
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [movieData, setMovieData] = useState([])
   const [producerCompanyData, setProducerCompanyData] = useState([])
-
-  useEffect(() => {
-    fetch('https://localhost:7186/api/Movies')
-      .then(response => response.json())
-      .then(movieData => setMovieData(movieData))
-      .catch(err => console.log(err))
-  }, [])
 
   useEffect(() => {
     fetch('https://localhost:7186/api/ProducerCompanies')
@@ -29,22 +24,25 @@ function App() {
 
   return (
     <>
-      <Navbar></Navbar>
+      <BrowserRouter>
+        <AuthService>
+          <Navbar></Navbar>
+          <div className="container">
+            <Routes>
+              <Route index element={<IndexPage />} className=""></Route>
+              <Route path="/index" element={<IndexPage />}></Route>
+              <Route path='/movies' element={<MoviesPage />}></Route>
+              <Route path='/login' element={<LoginPage />}></Route>
+              <Route path='/add-movie' element={<AddMoviePage />}></Route>
+              <Route path='/add-company' element={<AddCompanyPage />}></Route>
 
-      <div className="container">
-        <BrowserRouter>
-          <Routes>
+              {/* Creating a route for each of the producers */}
+              {producerCompanyData.map(prodCompany => <Route path={`/${prodCompany.name}`} key={prodCompany.id} element={<ProducerPage prodCompany={prodCompany} />}></Route>)}
 
-            <Route index element={<IndexPage />} className=""></Route>
-            <Route path="/index" element={<IndexPage />}></Route>
-            <Route path='/movies' element={<MoviesPage />}></Route>
-
-            {/* Creating a route for each of the producers */}
-            {producerCompanyData.map(prodCompany => <Route path={`/${prodCompany.name}`} key={prodCompany.id} element={<ProducerPage prodCompany={prodCompany} />}></Route>)}
-
-          </Routes>
-        </BrowserRouter>
-      </div>
+            </Routes>
+          </div>
+        </AuthService>
+      </BrowserRouter >
     </>
   )
 }
